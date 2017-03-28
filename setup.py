@@ -8,5 +8,5 @@ setup(name='facenet',
       author='David Sandberg',
       author_email='david.o.sandberg@gmail.com',
       url='https://github.com/davidsandberg/facenet/',
-      packages=['src','src.align','src.models', 'test'],
+      packages=['facenet','facenet.align','facenet.models'],
      )
