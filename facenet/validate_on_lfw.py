@@ -77,7 +77,7 @@ def main(args):
             nrof_batches = int(math.ceil(1.0*nrof_images / batch_size))
             print('nrof_images: %d, nrof_baches: %d' % (nrof_images, nrof_batches))
             emb_array = np.zeros((nrof_images, embedding_size))
-            for i in range(nrof_batches):
+            for i in range(100):#nrof_batches):
                 start_index = i*batch_size
                 end_index = min((i+1) * batch_size, nrof_images)
                 print('->batch[%d, %d]' % (start_index, end_index))
