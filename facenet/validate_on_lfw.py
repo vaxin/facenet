@@ -60,7 +60,8 @@ def main(args):
             print('Metagraph file: %s' % meta_file)
             print('Checkpoint file: %s' % ckpt_file)
             facenet.load_model(args.model_dir, meta_file, ckpt_file)
-            
+
+            print('get input and output tensors')
             # Get input and output tensors
             images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
             embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
@@ -70,21 +71,22 @@ def main(args):
             embedding_size = embeddings.get_shape()[1]
         
             # Run forward pass to calculate embeddings
-            print('Runnning forward pass on LFW images')
+            print('Running forward pass on LFW images')
             batch_size = args.lfw_batch_size
             nrof_images = len(paths)
             nrof_batches = int(math.ceil(1.0*nrof_images / batch_size))
+            print('nrof_images: %d, nrof_baches: %d' % (nrof_images, nrof_batches))
             emb_array = np.zeros((nrof_images, embedding_size))
             for i in range(nrof_batches):
                 start_index = i*batch_size
-                end_index = min((i+1)*batch_size, nrof_images)
+                end_index = min((i+1) * batch_size, nrof_images)
+                print('->batch[%d, %d]' % (start_index, end_index))
                 paths_batch = paths[start_index:end_index]
                 images = facenet.load_data(paths_batch, False, False, image_size)
-                feed_dict = { images_placeholder:images, phase_train_placeholder:False }
+                feed_dict = { images_placeholder: images, phase_train_placeholder: False }
                 emb_array[start_index:end_index,:] = sess.run(embeddings, feed_dict=feed_dict)
         
-            tpr, fpr, accuracy, val, val_std, far = lfw.evaluate(emb_array, 
-                actual_issame, nrof_folds=args.lfw_nrof_folds)
+            tpr, fpr, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=args.lfw_nrof_folds)
 
             print('Accuracy: %1.3f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
             print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))

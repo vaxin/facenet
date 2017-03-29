@@ -57,6 +57,8 @@ def main(args):
             # Run forward pass to calculate embeddings
             feed_dict = { images_placeholder: images, phase_train_placeholder:False }
             emb = sess.run(embeddings, feed_dict=feed_dict)
+            print('---embeddings---')
+            print(emb)
             
             nrof_images = len(args.image_files)
 
