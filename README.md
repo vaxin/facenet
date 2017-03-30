@@ -43,3 +43,10 @@ Currently, the best performing model is an Inception-Resnet-v1 model trained on 
 
 ## Performance
 The accuracy on LFW for the model [20170216-091149](https://drive.google.com/open?id=0B5MzpY9kBtDVSkRSZjFBSDQtMzA) is 0.993+-0.004. A description of how to run the test can be found on the page [Validate on LFW](https://github.com/davidsandberg/facenet/wiki/Validate-on-lfw).
+
+## Additional
+1. detect and align, will output all found faces to /tmp/
+python align.py {img}
+
+2. compare
+python /dl/facenet/facenet/compare.py {model_dir} {img1} {img2} {img3} {img4}
