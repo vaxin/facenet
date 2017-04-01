@@ -123,10 +123,10 @@ class Watcher:
                         min_dist = dist
 
             if min_index > -1:
-                print('%s found a familar face: %d, min_dist is %f' % (img_path, min_index, min_dist))
+                print('%s found a familar face: %d, min_dist is %f' % (self.img_path, min_index, min_dist))
                 self.face_set[min_index].append(emb)
             else:
-                print('%s found a new face, min_dist is %f' % (img_path, min_dist))
+                print('%s found a new face, min_dist is %f' % (self.img_path, min_dist))
                 self.face_set.append([ emb ])
         else:
             print('no face')
