@@ -135,10 +135,9 @@ class Watcher:
         while True:
             md5_new = md5(self.img_path)
             if os.path.exists(self.img_path) and md5_new != self.last_md5:
-                print('changes')
+                print('image changes')
                 self.cluster()
             self.last_md5 = md5_new
-            print(".",)
             time.sleep(1)
         
 if __name__ == "__main__":
